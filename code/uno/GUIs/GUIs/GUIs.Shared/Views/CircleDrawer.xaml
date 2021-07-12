@@ -1,0 +1,44 @@
+﻿<UserControl
+    x:Class="GUIs.Views.CircleDrawer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GUIs.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock Text="Circle Drawer" Style="{StaticResource SubtitleTextBlockStyle}" />
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Undo" Click="Undo" IsEnabled="{x:Bind local:CircleDrawer.IsUndoEnabled(Changes.HistoryIndex), Mode=OneWay}" />
+            <Button Content="Redo" Click="Redo" IsEnabled="{x:Bind local:CircleDrawer.IsRedoEnabled(Changes.HistoryIndex, Changes.History.Count), Mode=OneWay}" />
+        </StackPanel>
+        <ItemsControl ItemsSource="{x:Bind Circles, Mode=OneWay}" HorizontalAlignment="Left">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Background="Snow" Width="600" Height="400" Tapped="CreateCircle">
+                        <Canvas.Clip>
+                            <RectangleGeometry Rect="0, 0, 600, 400" />
+                        </Canvas.Clip>
+                    </Canvas>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="local:Circle">
+                    <Button CommandParameter="{x:Bind Id}" Padding="0" Margin="0" Width="{x:Bind Diameter, Mode=OneWay}" Height="{x:Bind Diameter, Mode=OneWay}" CornerRadius="{x:Bind local:Utility.GetRadiusFromDiameter(Diameter), Mode=OneWay}">
+                        <Button.RenderTransform>
+                            <TranslateTransform X="{x:Bind local:Utility.GetOffset(X, Diameter), Mode=OneWay}" Y="{x:Bind local:Utility.GetOffset(Y, Diameter), Mode=OneWay}" />
+                        </Button.RenderTransform>
+                        <Button.Flyout>
+                            <Flyout Closed="SaveCircle">
+                                <Slider Header="Adjust Diameter" Minimum="2" Maximum="100" Value="{x:Bind Diameter, Mode=TwoWay}" />
+                            </Flyout>
+                        </Button.Flyout>
+                        <Button.Command>
+                            <XamlUICommand x:Name="SelectCircleCommand" ExecuteRequested="SelectCircle" />
+                        </Button.Command>
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</UserControl>

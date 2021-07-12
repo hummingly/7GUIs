@@ -1,0 +1,27 @@
+﻿<UserControl
+    x:Class="GUIs.Views.Cells"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GUIs.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <DataTemplate x:Name="CellTemplate" x:DataType="local:Expression">
+            <TextBlock />
+        </DataTemplate>
+        <DataTemplate x:Name="CellEditingTemplate" x:DataType="local:Expression">
+            <TextBox />
+        </DataTemplate>
+    </UserControl.Resources>
+    <StackPanel>
+        <TextBlock Text="Cells" Style="{StaticResource SubtitleTextBlockStyle}" />
+        <controls:DataGrid ItemsSource="{x:Bind GridData}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="" Binding="{Binding Index}" IsReadOnly="True" CanUserResize="False"  />
+                <controls:DataGridTextColumn Header="A" Binding="{Binding A}" />
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+    </StackPanel>
+</UserControl>

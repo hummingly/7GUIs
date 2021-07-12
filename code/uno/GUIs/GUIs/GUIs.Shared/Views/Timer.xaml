@@ -1,0 +1,21 @@
+﻿<UserControl
+    x:Class="GUIs.Views.Timer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GUIs.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <local:MillisecondToDouble x:Key="MillisecondToValue"/>
+    </UserControl.Resources>
+    <StackPanel>
+        <TextBlock Text="Timer" Style="{StaticResource SubtitleTextBlockStyle}" />
+        <TextBlock Text="{x:Bind FormatElapsedTime(ElapsedTime.Value), Mode=OneWay}" />
+        <muxc:ProgressBar Value="{x:Bind ElapsedTime.Value, Converter={StaticResource MillisecondToValue}, Mode=OneWay}" Minimum="0.0" Maximum="{x:Bind duration_slider.Value, Mode=OneWay}" />
+        <TextBlock Text="{x:Bind FormatDuration(Duration.Value), Mode=OneWay}" />
+        <Slider x:Name="duration_slider" Value="{x:Bind Duration.Value, Converter={StaticResource MillisecondToValue}, Mode=TwoWay}" Minimum="0.0" Maximum="30.0" StepFrequency="0.1" ValueChanged="DurationChanged"  />
+        <Button Content="Reset Timer" Click="ResetTimer" />
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,49 @@
+#circle-drawer {
+    position: relative;
+}
+
+.circle-drawer-canvas {
+    position: relative;
+    width: 600px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 0.25rem;
+    border: 1px gray solid;
+}
+
+.circle-drawer-toolbar button {
+    margin: 0.25rem;
+}
+
+.circle-drawer-button {
+    margin: 0 0.25rem;
+}
+
+.circle-drawer-circle {
+    position: absolute;
+    background: snow;
+    border-radius: 50%;
+    border: 1px gray solid;
+}
+
+.circle-drawer-circle:hover {
+    z-index: 1;
+    border-color: cornflowerblue;
+    background: rgba(135, 206, 250, 0.5);
+}
+
+.circle-drawer-menu {
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+    padding: 0.5rem 1rem;
+    position: absolute;
+    background: snow;
+    border-radius: 0.25rem;
+    border: 1px gray solid;
+}
+
+.circle-drawer-menu[data-open="true"] {
+    visibility: visible;
+    z-index: 2;
+}
